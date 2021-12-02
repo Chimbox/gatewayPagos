@@ -3,6 +3,7 @@ const router = express.Router();
 const config = require('../config/config.js');
 const https = require('https');
 const axios = require('axios');
+FormData = require('form-data');
 
 /*
 router
@@ -21,7 +22,7 @@ router
             if (response.status === 200) {
                 res.status(200).send(response.data);
             } else {
-                res.status(500).jsonp(false);
+                res.status(500).send(false);
             }
         });
     });
@@ -41,10 +42,18 @@ router
 
 router.route('/boletos/comprobantes')
     .put((req, res) => {
-        console.log(req.body);
-        axios.put(config.endpoints.servicioNumPagos + 'boletos/comprobantes', { body: req.body }).then((response) => {
+ 
+        axios.put(config.endpoints.servicioNumPagos + 'boletos/comprobantes',
+            {
+                body: req
+            },
+            {
+                headers: {
+                    'Content-Type': req.get('Content-Type')
+                }
+            }).then((response) => {
 
-        });
+            });
 
 
     });

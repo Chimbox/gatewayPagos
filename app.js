@@ -8,16 +8,14 @@ const cors = require('cors');
 
 const config = require('./config/config.js');
 
-const bodyParser = require('body-parser');
+const formidable = require('express-formidable');
 
 
 //Midlewares
 app.use(cors(
   config.application.cors.server
 ));
-app.use(bodyParser.urlencoded());
-app.use(bodyParser.json());
-
+app.use(formidable());
 app.use(express.json());
 app.use('/res', router);
 
